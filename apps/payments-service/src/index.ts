@@ -4,6 +4,16 @@ import { Hono } from "hono";
 const app = new Hono();
 const PORT = 8002;
 
+// Health check endpoint
+app.get("/health", (c) => {
+  const data = {
+    uptime: process.uptime(),
+    message: "Ok",
+    date: new Date(),
+  };
+  return c.json(data, 200);
+});
+
 app.get("/", (c) => {
   return c.text("Hello Hono!");
 });
